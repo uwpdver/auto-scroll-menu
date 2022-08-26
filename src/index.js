@@ -12,6 +12,7 @@ const sectionsLenght = 20;
 
 const sectionsData = Array.from({ length: sectionsLenght }).map((_, index) => ({
   title: `这是这一节的标题-${index}`,
+  shortName: `标题-${index}`,
   id: index,
   data: [
     {
@@ -63,7 +64,7 @@ const navItemRender = (item, index, isActived) =>
   <div
     className={`${NavStyles.navItem} ${isActived && NavStyles.navItemActived}`}
   >
-    {item.title}
+    {item.shortName}
   </div>;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

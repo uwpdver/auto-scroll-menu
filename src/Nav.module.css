@@ -18,3 +18,8 @@
   color: #000;
 }
 
+@media screen and (max-width: 750px) {
+  .navItem {
+    font-size: 14px;
+  }
+}

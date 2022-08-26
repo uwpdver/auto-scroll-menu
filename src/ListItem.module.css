@@ -1,5 +1,5 @@
 .container {
-  display: flex;  
+  display: flex;
 }
 
 .name {
@@ -7,6 +7,11 @@
 }
 
 .desc {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin: 4px 0;
   font-size: 14px;
   color: #666;
 }
@@ -18,6 +23,22 @@
   position: relative;
   flex: 0 0 120px;
   height: 120px;
+}
+
+@media screen and (max-width: 750px) {
+  .thumbnailContainer {
+    margin-right: 12px;
+    flex: 0 0 72px;
+    height: 72px;
+  }
+
+  .name {
+    font-size: 12px;
+  }
+
+  .desc {
+    font-size: 12px;
+  }
 }
 
 .thumbnail {
