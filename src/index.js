@@ -8,7 +8,7 @@ import sectionStyles from "./Section.module.css";
 import NavStyles from "./Nav.module.css";
 import reportWebVitals from './reportWebVitals';
 
-const sectionsLenght = 200;
+const sectionsLenght = 20;
 
 const sectionsData = Array.from({ length: sectionsLenght }).map((_, index) => ({
   title: `这是这一节的标题-${index}`,

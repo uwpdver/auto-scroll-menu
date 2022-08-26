@@ -1,28 +1,37 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styles from './AutoScrollMenu.module.css';
 import Nav from './Nav';
 import Content from './Content';
 
-function AutoScrollMenu({sections, sectionItemRender, navItemRender}) {
+function AutoScrollMenu({ sections, sectionItemRender, navItemRender }) {
   const [activeSectiondIdx, setActiveSectiondIdx] = React.useState(0);
   const navItemElsRef = React.useRef([]);
   const sectionElsRef = React.useRef([]);
   const firstIndexRef = React.useRef(0);
+  const isScrollingRef = React.useRef(false);
 
   React.useEffect(() => {
     const intersectionObserver = new IntersectionObserver((entries) => {
       if (entries.length === sections.length) {
-      } else {
-        entries.forEach(entry => {
-          const idx = parseInt(entry.target.getAttribute('data-index'), 10);
-          if(idx < firstIndexRef.current && entry.isIntersecting){
+        firstIndexRef.current = 0;
+        return;
+      };
+
+      entries.forEach(entry => {
+        const idx = parseInt(entry.target.getAttribute('data-index'), 10);
+        if (isScrollingRef.current) {
+          if (idx === firstIndexRef.current && entry.isIntersecting){
+            isScrollingRef.current = false;
+          }
+        } else {
+          if (idx < firstIndexRef.current && entry.isIntersecting) {
             firstIndexRef.current = idx;
           }
-          if(idx === firstIndexRef.current && !entry.isIntersecting){
+          if (idx === firstIndexRef.current && !entry.isIntersecting) {
             firstIndexRef.current = idx + 1;
           }
-        })
-      }
+        }
+      })
       setActiveSectiondIdx(firstIndexRef.current)
     }, {
       root: null,
@@ -34,7 +43,7 @@ function AutoScrollMenu({sections, sectionItemRender, navItemRender}) {
         intersectionObserver.observe(section);
       })
     }
-    return ()=>{
+    return () => {
       intersectionObserver.disconnect();
     }
   }, [sections])
@@ -46,18 +55,21 @@ function AutoScrollMenu({sections, sectionItemRender, navItemRender}) {
         navItemEl.scrollIntoView({ behavior: "smooth", block: "center" });
       }
     }
-  }, [activeSectiondIdx])
 
-  const handleNavItemClick = (e, index) => {
-    firstIndexRef.current = index;
-    setActiveSectiondIdx(index)
-    if (sectionElsRef && Array.isArray(sectionElsRef.current)) {
-      const sectionEl = sectionElsRef.current[index];
+    if (isScrollingRef.current && sectionElsRef && Array.isArray(sectionElsRef.current)) {
+      const sectionEl = sectionElsRef.current[activeSectiondIdx];
       if (sectionEl instanceof HTMLElement) {
-        sectionEl.scrollIntoView();
+        sectionEl.scrollIntoView({ behavior: "smooth" });
       }
     }
-  }
+
+  }, [activeSectiondIdx])
+
+  const handleNavItemClick = React.useCallback((e, index) => {
+    firstIndexRef.current = index;
+    isScrollingRef.current = true;
+    setActiveSectiondIdx(index)
+  }, [])
 
   return (
     <div className={styles.container}>
