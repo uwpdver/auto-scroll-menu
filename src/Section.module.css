@@ -1,0 +1,15 @@
+.sectionHeader {
+  margin: 24px 16px 8px;
+  font-weight: 400;
+  font-size: 24px;
+}
+
+.sectionBody ul {
+  margin: 0 16px;
+  padding: unset;
+  list-style: none;
+}
+
+.sectionBody ul li:not(:last-child){
+  margin-bottom: 16px;
+}

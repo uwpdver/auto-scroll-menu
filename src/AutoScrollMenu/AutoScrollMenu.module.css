@@ -1,0 +1,32 @@
+.container {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  margin: 0 auto;
+}
+
+.container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav {
+  height: 100%;
+  flex: 0 0 288px;
+}
+
+.navList {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.content {
+  flex: 1;
+  overflow-y: scroll;
+}
+
+.empty {
+  width: 100%;
+  height: 100%;
+}

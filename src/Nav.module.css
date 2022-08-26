@@ -1,0 +1,20 @@
+.navItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 2rem;
+  cursor: pointer;
+  height: 48px;
+  background-color: #333;
+  color: #fff;
+}
+
+.navItem:hover {
+  background-color: #a4a4a4;
+}
+
+.navItemActived {
+  background-color: #ffffff;
+  color: #000;
+}
+
